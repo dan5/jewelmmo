@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20110811050715) do
 
   create_table "dungeons", :force => true do |t|
     t.integer  "town_id"
-    t.integer  "lv"
+    t.integer  "lv",         :default => 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
