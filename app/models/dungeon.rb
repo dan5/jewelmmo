@@ -5,6 +5,6 @@ class Dungeon < ActiveRecord::Base
   private
 
   def init_lv
-    rand < 0.3 ? self.lv += 1 : break while true
+    rand < 0.7 ? self.lv += 1 : break while true
   end
 end

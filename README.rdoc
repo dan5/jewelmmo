@@ -1,0 +1,8 @@
+
+!! town
+
+* has_many :users
+* has_many :shops
+* has_many :dungions
+* has_many :feilds
+
