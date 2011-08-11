@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  town_id: 1
+  lv: 1
+
+two:
+  town_id: 1
+  lv: 1
