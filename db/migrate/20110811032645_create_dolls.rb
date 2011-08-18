@@ -6,6 +6,7 @@ class CreateDolls < ActiveRecord::Migration
       t.integer :lv, :default => 1
       t.integer :exp, :default => 0
       t.integer :str, :default => 1
+      t.string :job, :default => 'fig'
 
       t.timestamps
     end

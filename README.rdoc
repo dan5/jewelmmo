@@ -1,8 +1,12 @@
 
-!! town
+== install
 
-* has_many :users
-* has_many :shops
-* has_many :dungions
-* has_many :feilds
+ gem install jewelmmo
 
+mac osx のデフォルト環境では以下のようにsudoが必要です。
+
+ sudo gem install jewelmmo
+
+== memo
+
+ r g model doll user_id:integer lv:integer exp:integer hp:integer str:integer
