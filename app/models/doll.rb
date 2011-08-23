@@ -1,5 +1,11 @@
 class Doll < ActiveRecord::Base
   belongs_to :user
+  belongs_to :doll
+  has_many :dolls
+
+  def attack
+    str + dolls.inject(0) {|t, e| t = t + e.str }
+  end
 
   def run(n = 1)
     n.times { experiences }
