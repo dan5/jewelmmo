@@ -10,12 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823025848) do
+ActiveRecord::Schema.define(:version => 20110824060418) do
 
   create_table "dolls", :force => true do |t|
     t.integer  "user_id"
     t.integer  "doll_id"
+    t.integer  "position"
     t.integer  "hp",         :default => 7
+    t.integer  "maxhp",      :default => 7
     t.integer  "lv",         :default => 1
     t.integer  "exp",        :default => 0
     t.integer  "str",        :default => 1
@@ -34,6 +36,23 @@ ActiveRecord::Schema.define(:version => 20110823025848) do
   create_table "events", :force => true do |t|
     t.integer  "doll_id"
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "doll_id"
+    t.integer  "event_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "monsters", :force => true do |t|
+    t.integer  "event_id"
+    t.string   "name"
+    t.integer  "hp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

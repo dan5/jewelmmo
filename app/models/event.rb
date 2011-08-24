@@ -4,50 +4,99 @@ class Event < ActiveRecord::Base
   has_many :items
 
   def test_setup
-    @dolls = Array.new(5) {|i| Doll.new :str => 13 - i * 3 }
-    self.doll = @dolls.first
+    @user = User.create
     self.name = 'encount'
+    self.doll = @user.dolls.create(:user => @user, :str => 7)
+    Array.new(5) {|i| doll.dolls.create :str => 6 - i }
+    Array.new(3) {|i| monsters.create :name => :slime }
+  end
+
+  def test_run
+    test_setup
+    encount = self
+    treasure = encount.open
+
+    assert treasure.items.count == 3
+    assert @user.items.count == 0
+
+    treasure.open
+
+    assert treasure.items.count == 0
+    assert @user.items.count == 3
+
+    p encount.doll.members.map(&:hp)
+  end
+
+  def assert(flag, message = "error")
+    flag or raise message
   end
 
   def open
     __send__ "open_#{name}"
   end
 
+  # memo: 全員のstr値の合計が相手str値以上なら勝利確定
+  # memo: 勝つのは当たり前で大切なのはダメージの有無
   def open_encount
-    win?
-    monsters
-    monster_str = 8
-    attack_times = 3
-    while attack_times > 0
-      doll = target_doll
-      doll.hp -= 1 if rand(monster_str + 1) >= rand(doll.str + 1)
-      attack_times -= 1
+    __log__ :encount, monsters.map(&:name)
+    monsters.each {|e| attack(e, target_doll) }
+    __log__ :encount_result, win? ? :won : :escape
+    if win?
+      t = create_new_treasure
+      __log__ :treasure_created, t.id
+      return t
     end
-    @dolls.map(&:hp)
-    # memo: 戦闘はstr比較だけでいいかも
-    # * 全員のstr値の合計が相手str値以上なら勝利確定
-    # * 勝つのは当たり前で大切なのはダメージの有無
+  end
+
+  private
+
+  def create_new_treasure
+    doll.events.create :name => :treasure
+  end
+
+  after_create :create_items
+
+  def create_items
+    if name == :treasure
+      3.times { items.create :name => :hello }
+    end
   end
 
   def win?
-    doll.attack > monsters.inject(0) {|t, e| t = t + e.str }
+    doll.strength > strength(monsters)
+  end
+
+  def strength(objs)
+    objs.inject(0) {|t, e| t = t + e.str }
+  end
+
+  def attack(monster, target)
+    monster.attack_times.times do
+      target.hp -= 1 if rand(monster.str + 1) >= rand(target.str + 1)
+    end
   end
 
   def target_doll
-    return if @dolls.empty?
-    return @dolls.first if @dolls.size == 1
+    return doll if doll.members.size == 1
     while true
-      @dolls.each do |doll|
-        return doll if rand(2) == 0
-      end
+      doll.members.each {|e| return e if rand(2) == 0 }
     end
   end
  
+  public
+
   def open_treasure
     items.each do |item|
       item.user = doll.user
-      doll.add_message :open, name, item.item_def.id
-      #=> [open, "treasure", 11]
+      item.event = nil
+      item.save
     end
+    __log__ :open, name, items.map(&:name)
+  end
+
+  private
+
+  def __log__(*args)
+    doll.add_message *args
   end
 end

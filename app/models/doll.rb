@@ -2,9 +2,18 @@ class Doll < ActiveRecord::Base
   belongs_to :user
   belongs_to :doll
   has_many :dolls
+  has_many :events
 
-  def attack
-    str + dolls.inject(0) {|t, e| t = t + e.str }
+  def add_message(*args)
+    p args
+  end
+
+  def members
+    [self] + dolls.map(&:members).flatten
+  end
+
+  def strength
+    str + dolls.inject(0) {|t, e| t = t + e.strength }
   end
 
   def run(n = 1)
