@@ -19,7 +19,7 @@ class Doll < ActiveRecord::Base
   end
 
   def strength
-    raise "doll:#{doll.id} is not master doll!" if doll
+    raise("doll:#{doll.id} is not master doll!") if doll
     _strength
   end
 
