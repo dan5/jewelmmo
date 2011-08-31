@@ -15,8 +15,7 @@ end
 7.times {|i| eval("def d#{i}() user.dolls[#{i}] end") }
 
 def run
-  :hello
-  #User.all.each(&:runr)
+  User.all.map(&:run)
 end
 
 # -- debug

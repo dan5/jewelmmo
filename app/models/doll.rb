@@ -35,6 +35,7 @@ class Doll < ActiveRecord::Base
 
   def run(n = 1)
     n.times { experiences }
+    save!
     exp
   end
 
