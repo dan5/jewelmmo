@@ -5,10 +5,12 @@ class User < ActiveRecord::Base
 
   def run
     leader_dolls = dolls.select {|e| !e.doll }
-    User.transaction {
-      r = leader_dolls.map(&:run)
-      save!
-      r
-    }
+    r = leader_dolls.map(&:run)
+    save!
+    r
+  end
+
+  def self.run
+    all.map &:run
   end
 end

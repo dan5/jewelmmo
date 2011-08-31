@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110829080908) do
+ActiveRecord::Schema.define(:version => 20110831170725) do
 
   create_table "dolls", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(:version => 20110829080908) do
     t.datetime "updated_at"
   end
 
+  create_table "free_dolls", :force => true do |t|
+    t.integer  "town_id"
+    t.integer  "seed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "items", :force => true do |t|
     t.integer  "user_id"
     t.integer  "doll_id"
@@ -57,13 +64,6 @@ ActiveRecord::Schema.define(:version => 20110829080908) do
     t.datetime "updated_at"
   end
 
-  create_table "new_dolls", :force => true do |t|
-    t.integer  "town_id"
-    t.integer  "seed"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "towns", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -71,6 +71,12 @@ ActiveRecord::Schema.define(:version => 20110829080908) do
 
   create_table "users", :force => true do |t|
     t.integer  "town_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "worlds", :force => true do |t|
+    t.integer  "turn",       :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

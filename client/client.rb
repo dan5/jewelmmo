@@ -14,15 +14,15 @@ end
 # d0..d6
 7.times {|i| eval("def d#{i}() user.dolls[#{i}] end") }
 
-def run
-  User.all.map(&:run)
-end
-
 # -- debug
 
 def setup
   User.find_or_create_by_id(1)
   login
+end
+
+def run
+  World.run
 end
 
 def reload
