@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20110831170725) do
   create_table "dolls", :force => true do |t|
     t.integer  "user_id"
     t.integer  "doll_id"
+    t.integer  "seed"
     t.integer  "position"
     t.integer  "hp",         :default => 7
     t.integer  "maxhp",      :default => 7

@@ -3,6 +3,7 @@ class CreateDolls < ActiveRecord::Migration
     create_table :dolls do |t|
       t.integer :user_id
       t.integer :doll_id
+      t.integer :seed
       t.integer :position
       t.integer :hp, :default => 7
       t.integer :maxhp, :default => 7

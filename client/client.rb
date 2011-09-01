@@ -7,8 +7,8 @@ def login
   "logged: user:#{user.id}"
 end
 
-def newdolls
-  NewDoll.all
+def free_dolls
+  FreeDoll.all
 end
 
 # d0..d6
@@ -35,6 +35,7 @@ end
 alias :u :user
 alias :d :dolls
 alias :r :run
+alias :f :free_dolls
 alias :re :reload
 
 # -- test

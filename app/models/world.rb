@@ -10,8 +10,8 @@ class World < ActiveRecord::Base
   def self.run
     transaction {
       FreeDoll.run
-      User.run
       instance.run
+      User.run
     }
   end
 end
