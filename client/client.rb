@@ -1,14 +1,17 @@
 
-def user() @user end
+def user() User.first end
 def dolls() user.dolls end
 
 def login
-  @user = User.first
   "logged: user:#{user.id}"
 end
 
 def free_dolls
   FreeDoll.all
+end
+
+def choice(free_doll_id)
+  user.choice free_doll_id
 end
 
 # d0..d6
@@ -36,6 +39,7 @@ alias :u :user
 alias :d :dolls
 alias :r :run
 alias :f :free_dolls
+alias :c :choice
 alias :re :reload
 
 # -- test

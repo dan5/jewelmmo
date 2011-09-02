@@ -17,12 +17,14 @@ ActiveRecord::Schema.define(:version => 20110831170725) do
     t.integer  "doll_id"
     t.integer  "seed"
     t.integer  "position"
-    t.integer  "hp",         :default => 7
-    t.integer  "maxhp",      :default => 7
-    t.integer  "lv",         :default => 1
-    t.integer  "exp",        :default => 0
-    t.integer  "str",        :default => 1
-    t.string   "job",        :default => "fig"
+    t.integer  "hp",          :default => 7
+    t.integer  "maxhp",       :default => 7
+    t.integer  "lv",          :default => 1
+    t.integer  "exp",         :default => 0
+    t.integer  "str",         :default => 1
+    t.string   "job",         :default => "fig"
+    t.string   "action"
+    t.integer  "act_counter", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

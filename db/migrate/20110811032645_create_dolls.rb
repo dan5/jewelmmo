@@ -11,6 +11,8 @@ class CreateDolls < ActiveRecord::Migration
       t.integer :exp, :default => 0
       t.integer :str, :default => 1
       t.string :job, :default => 'fig'
+      t.string :action
+      t.integer :act_counter, :default => 0
 
       t.timestamps
     end
