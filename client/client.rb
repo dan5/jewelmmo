@@ -42,6 +42,16 @@ alias :f :free_dolls
 alias :c :choice
 alias :re :reload
 
+class Array
+  def inspect
+    if first.is_a?(Doll)
+      "Dolls[\n" + self.map(&:simple_inspect).join(",\n") + "\n]"
+    else
+      super
+    end
+  end
+end
+
 # -- test
 
 def test

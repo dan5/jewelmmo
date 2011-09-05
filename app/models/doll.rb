@@ -9,10 +9,11 @@ class Doll < ActiveRecord::Base
     p args
   end
 
-  def inspect
-    indent = doll ? ' |- ' : ''
-    s = "<id:#{id}(#{events.size}) lv:#{lv} hp:#{hp}/#{maxhp} exp:#{exp} act:#{action}(#{act_counter})>"
-    "\t" + indent + s + "\n"
+  def simple_inspect
+    indent = doll ? '  ' : ''
+    head = indent + "d#{user.dolls.index(self)}. id:#{'%04d' % id}(#{events.size})"
+    body =  "lv:#{lv} hp:#{hp}/#{maxhp} exp:#{exp} act:#{action}(#{act_counter})"
+    head.ljust(14) + body
   end
 
   def members
