@@ -30,9 +30,9 @@ class Doll < ActiveRecord::Base
   end
 
   def follow(leader)
-    leader != self or "it's you!"
+    leader != self or raise "it's you!"
     dolls.count == 0 or raise "you is a leader!"
-    leader.leader? or raise "is not a leader!"
+    leader.leader? or raise "is'nt a leader!"
     update_attribute :doll, leader
     "follow #{leader}"
   end

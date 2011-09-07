@@ -8,7 +8,7 @@ describe User do
 
   it { @user.dolls.should be_empty }
 
-  describe "free dollを選んでdollを獲得" do
+  describe "free dollをchoiceしたとき" do
     before do
       free_doll = FreeDoll.create
       @user.choice free_doll.id
