@@ -32,7 +32,7 @@ class Doll < ActiveRecord::Base
   def follow(leader)
     leader != self or raise "it's you!"
     dolls.count == 0 or raise "you is a leader!"
-    leader.leader? or raise "is'nt a leader!"
+    leader.leader? or raise "isn't a leader!"
     update_attribute :doll, leader
     "follow #{leader}"
   end
@@ -54,29 +54,17 @@ class Doll < ActiveRecord::Base
 
   def stop
     leader? or raise
-    _stop
-    dolls.each &:_stop 
-  end
-
-  def _stop
     update_attribute :action, nil
     update_attribute :hp, 1
   end
 
   def sleep
-    _sleep
-    dolls.each &:_sleep
-  end
-
-  def _sleep
+    raise if action
     update_attribute :action, 'sleep'
   end
 
   def run(n = 1)
-    n.times {
-      act
-      dolls.each {|e| e.run(n) }
-    }
+    n.times { act }
     save!
     exp
   end
@@ -88,10 +76,11 @@ class Doll < ActiveRecord::Base
   end
 
   def act_nop
+    # nopアクション...jobに応じて実行される
   end
 
   def act_sleep
-    self.hp += 1 if rand(hp) < 1
+    self.hp += 1 if hp < maxhp and rand(hp) < 1
   end
 
   def act_explore

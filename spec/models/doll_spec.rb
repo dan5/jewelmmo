@@ -29,7 +29,7 @@ describe Doll do
 
     it "followされると例外" do
       # todo: "is'nt"
-      proc { @dolls[2].follow @doll }.should raise_error(RuntimeError, "is'nt a leader!")
+      proc { @dolls[2].follow @doll }.should raise_error(RuntimeError, "isn't a leader!")
     end
   end
 
@@ -71,6 +71,7 @@ describe Doll do
       end
 
       its(:strength) { should == 6 }
+
       it { @doll.members.size.should == 3 }
 
       context "ひとり抜けると..." do
@@ -84,27 +85,78 @@ describe Doll do
     end
   end
 
-  context "#start" do
+  context "actionがないとき" do
+    before { @doll.update_attribute :action, nil }
+
     context "dollをfollowしたとき" do
-      before do
-        @doll.follow @dolls[1]
-      end
+      before { @doll.follow @dolls[1] }
 
       it "#startすると例外" do
         proc { @doll.start }.should raise_error
       end
+
+      it "#stopすると例外" do
+        proc { @doll.stop }.should raise_error
+      end
     end
 
     context "#startを実行したとき" do
-      before do
-        @doll.start
-      end
+      before { @doll.start }
 
       its(:action) { should == 'explore' }
+
+      it "#sleepすると例外" do
+        proc { @doll.sleep }.should raise_error
+      end
 
       context "#stop" do
         before { @doll.stop }
         its(:action) { be_false }
+      end
+    end
+
+    context "#sleepを実行したとき" do
+      before { @doll.sleep }
+
+      its(:action) { should == 'sleep' }
+
+      context "#start" do
+        before { @doll.start }
+        its(:action) { should == 'explore' }
+      end
+    end
+  end
+
+  context "hp1でsleepしたとき" do
+    before do
+      @doll.update_attribute :hp, 1
+      @doll.sleep
+    end
+
+    subject { @doll }
+
+    its(:hp) do
+      @doll.run
+      should == 2
+    end
+
+    (1..10).each do |i|
+      its(:hp) do
+        @doll.stub!(:rand).and_return(0)
+        i.times { @doll.run }
+        if i + 1 < @doll.maxhp
+          should == i + 1
+        else
+          should == 7
+        end
+      end
+    end
+
+    (2..7).each do |i|
+      its(:hp) do
+        @doll.stub!(:rand).and_return(1)
+        i.times { @doll.run }
+        should == 1
       end
     end
   end
