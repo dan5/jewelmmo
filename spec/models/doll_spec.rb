@@ -14,11 +14,13 @@ describe Doll do
 
   subject { @doll }
 
-  its(:hp) { should == 7 }
-  its(:maxhp) { should == 7 }
-  its(:lv) { should == 1 }
-  its(:exp) { should == 0 }
-  its(:leader?) { should be_true }
+  context "初期パラメータは次の通りであること" do
+    its(:hp) { should == 6 }
+    its(:maxhp) { should == 7 }
+    its(:lv) { should == 1 }
+    its(:exp) { should == 0 }
+    its(:leader?) { should be_true }
+  end
 
   it "自分をfollowすると例外" do
     proc { @doll.follow @doll }.should raise_error(RuntimeError, "it's you!")
