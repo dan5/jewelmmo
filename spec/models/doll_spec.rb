@@ -15,7 +15,7 @@ describe Doll do
   subject { @doll }
 
   context "初期パラメータは次の通りであること" do
-    its(:hp) { should == 6 }
+    its(:hp) { should == 7 }
     its(:maxhp) { should == 7 }
     its(:lv) { should == 1 }
     its(:exp) { should == 0 }
