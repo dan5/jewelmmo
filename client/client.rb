@@ -35,6 +35,9 @@ def reload
   'reload.'
 end
 
+def server
+end
+
 alias :u :user
 alias :d :dolls
 alias :r :run

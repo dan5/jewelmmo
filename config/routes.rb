@@ -1,4 +1,9 @@
 Jewelmmo::Application.routes.draw do
+  match 'worlds/run/:sid' => 'worlds#run'
+  resources :users
+  resources :cats
+  #   match 'products/:id' => 'catalog#view'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

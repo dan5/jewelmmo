@@ -1,0 +1,8 @@
+%p#notice= notice
+
+- @user.dolls.each do |doll|
+  %p= doll.simple_inspect
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path
